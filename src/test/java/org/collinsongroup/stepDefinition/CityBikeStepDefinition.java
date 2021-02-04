@@ -28,27 +28,11 @@ public class CityBikeStepDefinition {
   public void i_enter_as_a_resource(String string) {
     request.basePath(string);
     response = request.get().then();
-    ArrayList<LinkedHashMap<String, Object>> locationData = request.get().getBody().jsonPath().get("networks");
-//request.get().getBody().jsonPath().get("networks.findAll{a -> a.location.city == 'Frankfurt'}")
-
-   /* Set<String> company = new HashSet<>();
-    for (LinkedHashMap<String, Object> locationInfo : locationData) {
-      if(locationInfo.get("company") instanceof String) {
-        company.add(locationInfo.get("company").toString());
-      } else {
-        company.add(((List<String>) locationInfo.get("company")).get(0));
-      }*/
-      /*if (locationInfo.get("city").equals("Frankfurt") && locationInfo.get("country").equals("DE")) {
-        System.out.println(locationInfo);
-      } else {
-        System.out.println("No location information found for city Frankfurt in Germany");
-      }*/
-
   }
 
   @Then("I verify the response code as {int}")
-  public void i_verify_the_response_code_as(Integer int1) {
-    response.statusCode(int1);
+  public void i_verify_the_response_code_as(Integer statusCode) {
+    response.statusCode(statusCode);
   }
 
   @Then("I verify the content type as json")
@@ -61,6 +45,21 @@ public class CityBikeStepDefinition {
     response.assertThat().body("networks.size()", Matchers.greaterThan(0));
     Root r = response.extract().as(Root.class);
     System.out.println(r);
+  }
+
+  @When("I send the {string} http method")
+  public void i_send_the_post_http_method(String string) {
+    switch (string) {
+      case "post" :
+        response = request.post().then();
+        break;
+      case "put" :
+        response = request.put().then();
+        break;
+      case "delete":
+        response = request.delete().then();
+        break;
+    }
   }
 
 
