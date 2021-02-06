@@ -9,6 +9,7 @@ import io.cucumber.junit.Cucumber;
     strict = true,
     features = {"classpath:features"},
     glue = {"org.collinsongroup"},
-    plugin = "de.monochromata.cucumber.report.PrettyReports:target/cucumber")
-public class CucumberRunner {
+    plugin = {"json:target/cucumber.json",
+        "de.monochromata.cucumber.report.PrettyReports:target/cucumber"})
+public class CucumberRunnerTest {
 }
