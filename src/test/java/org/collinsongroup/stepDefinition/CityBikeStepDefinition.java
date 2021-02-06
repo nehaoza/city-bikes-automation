@@ -1,23 +1,21 @@
 package org.collinsongroup.stepDefinition;
 
 import io.cucumber.datatable.DataTable;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
-import org.collinsongroup.bean.Location;
 import org.collinsongroup.bean.Networks;
 import org.collinsongroup.bean.Root;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 
-import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 public class CityBikeStepDefinition {
@@ -33,16 +31,22 @@ public class CityBikeStepDefinition {
         .baseUri("http://api.citybik.es");
   }
 
-  @When("I enter {string} as a resource")
+  @And("I request list of networks")
+  public void i_request_list_of_networks() {
+    response = request.get().then().log().all();
+  }
+
+  @When("I provide {string} as a resource")
   public void i_enter_as_a_resource(String string) {
     request.basePath(string);
-    response = request.get().then().log().all();
   }
 
   @Then("I verify the response code as {int}")
   public void i_verify_the_response_code_as(Integer statusCode) {
     response.statusCode(statusCode);
-    root = response.extract().as(Root.class);
+    if (! Integer.valueOf(404).equals(statusCode)) {
+      root = response.extract().as(Root.class);
+    }
   }
 
   @Then("I verify the content type as json")
@@ -74,6 +78,8 @@ public class CityBikeStepDefinition {
   @When("I pass the filter fields in resource url")
   public void i_pass_the_filter_fields_in_resource_url(DataTable dataTable) {
     List<String> filteringFields = dataTable.asList();
+    String result = "";
+
     String filterFields = filteringFields.stream().collect(Collectors.joining(","));
     request.queryParam("fields", filterFields);
     request.log().all();
@@ -81,9 +87,10 @@ public class CityBikeStepDefinition {
     response = request.get().then();
   }
 
-  @Then("I verify the response is render only with filter fields")
+  @Then("I verify the response is rendered only with filter fields")
   public void i_verify_the_response_is_render_only_with_filter_fields(DataTable dataTable) {
     List<String> filteringFields = dataTable.asList();
+
     filteringFields.stream().forEach(field -> response.body("network", hasKey(field)));
   }
 /*  @Then("I verify the json schema of the response")
