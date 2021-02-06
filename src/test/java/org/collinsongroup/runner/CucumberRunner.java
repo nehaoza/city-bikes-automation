@@ -6,6 +6,7 @@ import io.cucumber.junit.Cucumber;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
+    strict = true,
     features = {"classpath:features"},
     glue = {"org.collinsongroup"},
     plugin = "de.monochromata.cucumber.report.PrettyReports:target/cucumber")
