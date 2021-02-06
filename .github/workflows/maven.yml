@@ -34,7 +34,7 @@ jobs:
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
       - name: SonarCloud Analysis
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -DskipTests
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -DskipTests -Dproject.settings=./sonar-project.properties
         env:
               # Needed to get some information about the pull request, if any
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
