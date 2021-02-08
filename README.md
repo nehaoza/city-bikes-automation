@@ -34,7 +34,8 @@ mvn clean test
 # **Continuous Integration with GitHub Actions**
 
 ## **When it triggers?**
-1. WHen commited to main branch
+1. When commited to main branch
+https://github.com/nehaoza/city-bikes-automation/commit/06475b8d802ed2091ca48b3e976bb6cbbb3a9fa0
 
 2. When Merge request is raised against main branch
 https://github.com/nehaoza/city-bikes-automation/pull/1
@@ -49,7 +50,7 @@ https://github.com/nehaoza/city-bikes-automation/runs/1853371141?check_suite_foc
 1. Compiles and builds the code
 2. Runs automation suitein GitHub Actions container
 3. Does Sonar scan and pushes hte result to sonar dashboard.
-4. Extract the sonar summbery and attaches it to Merge Request in case of Merge Request
+4. Extract the sonar summery and attaches it to Merge Request in case of Merge Request
 5. Attaches the summury of cucumber scenarios as a part of automation suite
 
 
