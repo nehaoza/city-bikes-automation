@@ -31,7 +31,7 @@ cd city-bikes-automation
 mvn clean test
 ````
 
-# **Contibues Integration with GitHub Actions**
+# **Continuous Integration with GitHub Actions**
 
 ## **When it triggers?**
 1. WHen commited to main branch
