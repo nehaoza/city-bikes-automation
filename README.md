@@ -35,7 +35,15 @@ mvn clean test
 
 ## **When it triggers?**
 1. WHen commited to main branch
+
 2. When Merge request is raised against main branch
+https://github.com/nehaoza/city-bikes-automation/pull/1
+
+GitHub Actions flow - 
+https://github.com/nehaoza/city-bikes-automation/runs/1853371141?check_suite_focus=true
+
+Cucumber scenario overview in GitHUb Actions-
+https://github.com/nehaoza/city-bikes-automation/runs/1853371141?check_suite_focus=true
 
 ## **What it does?**
 1. Compiles and builds the code
@@ -46,7 +54,6 @@ mvn clean test
 
 
 # **Achieves**
-
 1. Automated the City Bikes API with Rest Assured and Cucumber
 2. Added CI pipeline with GitHUb Actions
 3. Project is built with zero bugs and Vulnerabilities in Sonar. 
